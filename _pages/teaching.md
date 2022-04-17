@@ -2,10 +2,18 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+description: Courses
 nav: true
 ---
+# Teaching Assistance
+## Graduate
+* Information theory: held review sessions
+* Algorithmic game theory: Designed problem sets and graded them
+* Social and economic networks: Designed problem sets and graded them
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
 
-Organize your courses by years, topics, or universities, however you like!
+## Undergraduate:.
+* Probability and Statistics: held review sessions-Designed problem sets and graded them
+* Advanced Programming: Designed problem sets and graded them
+* Numerical methods: Designed problem sets and graded them
+
