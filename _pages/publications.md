@@ -3,7 +3,7 @@ layout: page
 permalink: /publications/
 title: publications
 description: ""
-years: [2000]
+years: []
 nav: true
 ---
 <!-- _pages/publications.md -->
