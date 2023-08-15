@@ -24,4 +24,14 @@ You can find the project <a href="https://github.com/AlexTISYoung/snipar">here</
 </p> 
 </section>
 
+<section>
+            <h1>poissonreg</h1>
+             
+ 
+<p>
+A simple <a href="https://github.com/MoeenNehzati/PoissonReg">library</a>. for sparse poisson regression, based on PyTorch.
+</p> 
+
+</section>
+
 </div>
