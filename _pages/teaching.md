@@ -4,6 +4,7 @@ permalink: /teaching/
 title: teaching
 description: Courses
 nav: true
+nav_order: 6
 ---
 # Teaching Assistance
 ## Graduate
