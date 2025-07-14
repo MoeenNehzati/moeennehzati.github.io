@@ -1,7 +1,7 @@
 ---
 layout: page
-title: projects
-permalink: /projects/
+title: Projects
+permalink: /Projects/
 description: Code-Heavy stuff
 nav: true
 nav_order: 2
