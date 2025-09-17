@@ -16,6 +16,7 @@ nav_order: 6
 
 
 ## Undergraduate:.
+* Intro to Statistics (2025)
 * Introduction to Econometrics(2023)
 * Probability and Statistics(2017)
 * Numerical methods(2017)

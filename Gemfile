@@ -21,6 +21,10 @@ group :jekyll_plugins do
     gem 'mini_racer'
     gem 'unicode_utils'
     gem 'webrick'
+    gem 'observer'
+    gem 'logger'
+    gem 'ostruct'
+    gem 'benchmark'
 end
 group :other_plugins do
     gem 'css_parser'
