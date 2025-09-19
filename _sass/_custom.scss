@@ -1,0 +1,39 @@
+@import "variables";
+
+/* === Theme-aware banner (works in light & dark) === */
+.homepage-banner {
+  /* layout */
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  border-radius: 8px;
+    margin-right: 300px;          /* 👈 shift to the right of your photo */
+  box-sizing: border-box;
+
+  /* light mode colors */
+  background: mix($primary, $background-color, 6%);         // subtle NYU tint
+  border: 1px solid mix($primary, $background-color, 35%);
+  color: $text-color;
+
+  a { color: $link-color; }
+  a:hover { color: $link-hover-color; text-decoration: underline; }
+}
+
+/* dark mode overrides */
+[data-theme="dark"] .homepage-banner {
+  background: lighten($grey-color-dark, 6%);                 // #1c1c1d → a touch lighter
+  border: 1px solid $blue-color-dark;                        // deep NYU violet as border
+  color: $white-color;
+
+  a { color: $light-purple-color; }
+  a:hover { color: lighten($light-purple-color, 8%); }
+}
+
+
+
+/* On mobile, let it span full width */
+@media (max-width: 768px) {
+  .homepage-banner {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}

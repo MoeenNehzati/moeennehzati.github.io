@@ -1,8 +1,9 @@
+
 ---
 layout: page
 title: Projects
 permalink: /Projects/
-description: Code-Heavy stuff
+description: Selected Technical Projects
 nav: true
 nav_order: 2
 display_categories: [research]
