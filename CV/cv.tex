@@ -37,8 +37,20 @@
 %            content
 %----------------------------------------------------------------------------------
 % Use biblatex+biber for flexible bibliography rendering in the CV
-\usepackage[backend=biber,style=authoryear,maxnames=7,minnames=1,sorting=ydnt]{biblatex}
+\usepackage[backend=biber,style=authoryear,maxnames=4,minnames=1,sorting=ydnt]{biblatex}
 \DeclareNameAlias{author}{given-family}
+
+% Notes may contain characters like '&' that break moderncv's tabular-based layout.
+% Sanitize them at print time (so `.bib` can contain e.g. `notes = {R&R at ...}`).
+\ExplSyntaxOn
+\cs_new_protected:Npn \cvbibSanitizeNote #1
+  {
+    \tl_set:Nn \l_tmpa_tl { #1 }
+    \tl_replace_all:Nnn \l_tmpa_tl { & } { \& }
+    \tl_use:N \l_tmpa_tl
+  }
+\ExplSyntaxOff
+\DeclareFieldFormat{note}{\cvbibSanitizeNote{#1}}
 \DeclareSourcemap{
   \maps[datatype=bibtex]{
     % Normalize link fields: if `url` is missing but `html` exists, copy `html` -> `url`.
@@ -56,6 +68,11 @@
     \map{
       \step[fieldsource=extra, fieldtarget=note, final]
       \step[fieldset=extra, null]
+    }
+    % Some entries may use `notes` (plural); map it into `note` (biblatex standard).
+    \map{
+      \step[fieldsource=notes, fieldtarget=note, final]
+      \step[fieldset=notes, null]
     }
   }
 }
@@ -130,12 +147,10 @@
 \DeclareBibliographyDriver{techreport}{\cvbibdriver}
 \DeclareBibliographyDriver{misc}{\cvbibdriver}
 
-% Subsection heading with an aligned horizontal rule (similar to the rule used in some moderncv headings).
-\newcommand*{\pubsubsection}[1]{%
-  \subsection{#1}%
-  \noindent\hspace*{\hintscolumnwidth}\hspace*{\separatorcolumnwidth}%
-  {\color{color1!85!black}\rule{0.72\maincolumnwidth}{0.4pt}}%
-  \par\addvspace{0.5ex}%
+% Group marker shown in the year (hint) column once per category.
+\newcommand*{\pubgroup}[1]{%
+  % Use theme purple (NYU-ish) and prevent line breaks in the hint column.
+  \cvitem{\makebox[\hintscolumnwidth][l]{\textcolor{color1}{\textbf{\mbox{#1}}}}}{}%
 }
 
 \begin{document}
@@ -163,13 +178,13 @@
 \section{Research}
 % Include all entries so printbibliography can filter them
 \nocite{*}
-\pubsubsection{Published}
+\pubgroup{Published}
 \printbibliography[check=published,heading=none]
 
-\pubsubsection{Preprints}
+\pubgroup{Preprints}
 \printbibliography[check=preprint,heading=none]
 
-\pubsubsection{Work in progress}
+\pubgroup{Work in progress}
 \printbibliography[check=wip,heading=none]
 
 
