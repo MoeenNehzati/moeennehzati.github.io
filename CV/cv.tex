@@ -1,0 +1,292 @@
+\documentclass[11pt,a4paper,sans, colorlinks=true]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+\moderncvstyle{casual}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{purple}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+
+\usepackage[scale=0.88]{geometry}
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% personal data
+\name{Seyed Moeen}{Nehzati}
+%\title{Resumé title}                               % optional, remove / comment the line if not wanted
+%\address{street and number}{postcode city}{country}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+% \phone[mobile]{+1~4159966470}                   % optional, remove / comment the line if not wanted
+% \phone[fixed]{+98~02122979408}                    % optional, remove / comment the line if not wanted
+%\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{Moeen.Nehzati@nyu.edu}     % optional, remove /
+\extrainfo{
+\href{https://scholar.google.com/citations?user=ulApCu8AAAAJ&hl=en}{Google Scholar}
+}
+\homepage{moeennehzati.github.io}
+%\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+%\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+% \quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+% Use biblatex+biber for flexible bibliography rendering in the CV
+\usepackage[backend=biber,style=authoryear,maxnames=4,minnames=1,sorting=ydnt]{biblatex}
+\DeclareNameAlias{author}{given-family}
+
+% Notes may contain characters like '&' that break moderncv's tabular-based layout.
+% Sanitize them at print time (so `.bib` can contain e.g. `notes = {R&R at ...}`).
+\ExplSyntaxOn
+\cs_new_protected:Npn \cvbibSanitizeNote #1
+  {
+    \tl_set:Nn \l_tmpa_tl { #1 }
+    \tl_replace_all:Nnn \l_tmpa_tl { & } { \& }
+    \tl_use:N \l_tmpa_tl
+  }
+\ExplSyntaxOff
+\DeclareFieldFormat{note}{\cvbibSanitizeNote{#1}}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    % Normalize link fields: if `url` is missing but `html` exists, copy `html` -> `url`.
+    \map{
+      \step[fieldsource=html, fieldtarget=url, final]
+      \step[fieldset=html, null]
+    }
+    % `abbr` is a nonstandard field; map it into `shortjournal` (a standard biblatex field)
+    % so it survives biber and we can reliably print it.
+    \map{
+      \step[fieldsource=abbr, fieldtarget=shortjournal, final]
+      \step[fieldset=abbr, null]
+    }
+    % Some entries may store notes in a nonstandard `extra` field; map it into `note`.
+    \map{
+      \step[fieldsource=extra, fieldtarget=note, final]
+      \step[fieldset=extra, null]
+    }
+    % Some entries may use `notes` (plural); map it into `note` (biblatex standard).
+    \map{
+      \step[fieldsource=notes, fieldtarget=note, final]
+      \step[fieldset=notes, null]
+    }
+  }
+}
+\addbibresource{../_bibliography/papers.bib}
+
+% Filters based on `status` field in the bib file
+% Use biblatex checks to test the `status` field value
+\defbibcheck{published}{%
+  \ifkeyword{published}{% keep entry
+  }{\skipentry}% else skip
+}
+\defbibcheck{preprint}{%
+  \ifkeyword{preprint}{% keep entry
+  }{\skipentry}% else skip
+}
+\defbibcheck{wip}{%
+  \ifkeyword{work-in-progress}{% keep entry
+  }{\skipentry}% else skip
+}
+
+% Render bibliography entries as moderncv `\cventry` lines
+% Format: year · title · (linked abbr, if provided) · authors
+\newcommand*{\cvbibvenue}{%
+  \iffieldundef{shortjournal}{%
+    \iflistundef{institution}{}{\printlist{institution}}%
+  }{%
+    \iffieldundef{url}{%
+      \printfield{shortjournal}%
+    }{%
+      \href{\strfield{url}}{\printfield{shortjournal}}%
+    }%
+  }%
+}
+
+\newbool{cvbibprinted}
+\newcommand*{\cvbibdetails}{%
+  \boolfalse{cvbibprinted}%
+  % Venue (linked when url exists)
+  \iffieldundef{shortjournal}{%
+    \iflistundef{institution}{}{%
+      \printlist{institution}%
+      \booltrue{cvbibprinted}%
+    }%
+  }{%
+    \cvbibvenue%
+    \booltrue{cvbibprinted}%
+  }%
+  % Optional note/extra
+  \iffieldundef{note}{}{%
+    \ifbool{cvbibprinted}{\addcomma\space}{}%
+    \printfield{note}%
+    \booltrue{cvbibprinted}%
+  }%
+  % Authors
+  \ifnameundef{author}{}{%
+    \ifbool{cvbibprinted}{\addcomma\space}{}%
+    \printnames{author}%
+  }%
+}
+
+\newcommand*{\cvbibdriver}{%
+  % moderncv's \cventry prints fields 3--6 inline (comma-separated) and field 7 on a new line.
+  % Keep venue + optional note + authors on a single line.
+  \cventry{\printfield{year}}{\printfield{title}}{\cvbibdetails}{}{}{}{}%
+  \finentry
+}
+
+% Override the standard biblatex drivers so entries render as moderncv `\cventry`.
+\DeclareBibliographyDriver{article}{\cvbibdriver}
+\DeclareBibliographyDriver{inproceedings}{\cvbibdriver}
+\DeclareBibliographyDriver{report}{\cvbibdriver}
+\DeclareBibliographyDriver{techreport}{\cvbibdriver}
+\DeclareBibliographyDriver{misc}{\cvbibdriver}
+
+% Group marker shown in the year (hint) column once per category.
+\newcommand*{\pubgroup}[1]{%
+  % Use theme purple (NYU-ish) and prevent line breaks in the hint column.
+  \cvitem{\makebox[\hintscolumnwidth][l]{\textcolor{color1}{\textbf{\mbox{#1}}}}}{}%
+}
+
+\begin{document}
+%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\section{Education}
+\cventry{2022--2027}{PhD in Economics}{}{}{}{New York University, NY, USA}
+\cventry{2015--2019}{BS in Computer Engineering}{}{}{}
+{Sharif University of Technology, Tehran, Iran
+}
+%  \\ cumulative GPA: \textbf{19.08/20  }
+
+\section{Research Interest}
+\cventry{}{Optimization - Optimal Transport - Neural Networks - Experimental Design}{}{}{}{}
+
+\section{Work Experience}
+\cventry{2020-2022}{Predoctoral research fellow}{UCLA and USC}{}{}{I worked on disentangling the complex relationship between genetic factors and behavioral traits. I was responsible for solving statistical models and implementing efficient solutions scalable to terabytes of data. This effort led to papers published in Nature and the development of statistical software regularly used by practitioners in the field.}
+
+
+\cventry{ 2019}{Data Scientist}{Cafe bazaar}{}{}{Cafe Bazaar is an Iranian Android marketplace with more than 50 million active users. There, I worked on optimizing the advertising auctions and evaluating them empirically. Due to my technical background, I also participated in the creation, implementation, and deployment of the machine learning models needed for resolving auctions.}
+
+%\clearpage\end{CJK*}                              % if you are typesetting your resume in Chinese using CJK; the \clearpage is required for fancyhdr to work correctly with CJK, though it kills the page numbering by making \lastpage undefined
+% Replace manual publication list with biblatex-driven lists
+\section{Research}
+% Include all entries so printbibliography can filter them
+\nocite{*}
+\pubgroup{Published}
+\printbibliography[check=published,heading=none]
+
+\pubgroup{Preprints}
+\printbibliography[check=preprint,heading=none]
+
+\pubgroup{Work in progress}
+\printbibliography[check=wip,heading=none]
+
+
+
+\section{Software}
+\cventry{}{gconvex}{\href{https://github.com/MoeenNehzati/gconvex}{available here} }{}{}{Implements Finitely Convex Models developed in Universal Representation of Generalized Convex Functions and their Gradients. The models are used to find optimal selling mechanism with single buyer and multiple goods. The results match the theoretical optimal benchmark and are quick to be found even on personal computers.}
+
+\cventry{}{SNIPar}{\href{https://github.com/AlexTISYoung/SNIPar}{available here} }{}{}{A python library for fast imputation of missing parental genotypes from observed genotypes in a nuclear family, performing family-based genome-wide association and polygenic score analysis}
+
+\cventry{}{poissonreg}{\href{https://github.com/MoeenNehzati/PoissonReg}{available here} }{}{}{A lightweight python package for fast sparse poison regression based on pytorch}
+
+
+
+% \section{Teaching Experience}
+
+% \cventry{2019}{Teaching Assistant: Algorithmic game theory}{Sharif University of Technology}{graduate course}{}{}
+
+% \cventry{2019}{Teaching Assistant: Information theory}{Sharif University of Technology}{graduate course}{}{}
+
+% \cventry{2018}{Teaching Assistant: Numerical methods}{Sharif University of Technology}{}{}{}
+
+% \cventry{2017}{Teaching Assistant: Social and economic networks}{Sharif University of Technology}{graduate course}{}{}
+
+% \cventry{2017}{Teaching Assistant: Probability and Statistics}{Sharif University of Technology}{}{}{}
+
+% \cventry{2016}{Teaching Assistant: Advanced Programming}{Sharif University of Technology}{}{}{}
+
+\section{Technical skills}
+\cvdoubleitem{}{\textbf{Python/Java/Cython} Expert}{}{\textbf{Pytorch/Scikit/Spark} Experienced}
+\cvdoubleitem{}{\textbf{Scientific Programming} Expert}{}{\textbf{C/C++/R/SQL/Julia} Experienced}
+
+% \section{Economics-Relevant Coursework}
+% \cventry{}{Economics:}{}{}{}{
+% \begin{itemize}%
+% The graduate first-year sequence in Microeconomics, Macroeconomics, and econometrics/ Algorithmic Game theory (19.9/20)/ Mechanism design[graduate at Stanford] (audited)/ System Dynamics[graduate] (20/20)
+% \end{itemize}}
+
+% \cventry{}{Statistics and machine learning:}{}{}{}{
+% \begin{itemize}%
+%  Causal inference[graduate] (20/20)/ Information theory[graduate] (18.9/20)/ Deep learning[from Google] (audited)/ Machine learning (audited)/ Probability and Statistics (20/20)
+% \end{itemize}}
+
+% \cventry{}{Mathematics:}{}{}{}{
+% \begin{itemize}%
+%  Mathematical Analysis (A)/ Linear algebra (20/20)/ Multivariate-Calculus (18/20)/ Differential equations (19.1/20)/ Numerical methods (19.3/20)
+% \end{itemize}}
+
+% \cventry{}{Theoretical computer science:}{}{}{}{
+% \begin{itemize}%
+%   Design and analysis of algorithms[with a focus on graph algorithms] (18.8/20)/ Discrete mathematics (19.6/20)/ Theory of languages and automata (19.1/20)/ Computability theory (20/20)
+% \end{itemize}}
+
+% \cventry{}{Computer engineering(with a focus on data):}{}{}{}{
+% \begin{itemize}%
+%  Database design (18.7/20)/ Modern information retrieval (18.6/20)/ Advanced programming (19.7/20)/ Fundamentals of programming (20/20)/  Compiler design (20/20)
+% \end{itemize}}
+
+\section{Awards and Honors}
+% \cventry{}{ranked 7th in Iran's national university entrance exam's related subdivision}{}{}{}{}
+\cventry{}{Among top 0.05\% in Iran's national university entrance exam}{}{}{}{}
+\cventry{}{Member of Iran's National Elites Foundation}{}{}{}{}
+% INEF regards its young members as those who will lead Iran's future in science, culture and art
+
+\section{Languages}
+\cvitemwithcomment{}{Persian(native)/ English(Fluent)/ Arabic(basic)}{}
+
+\section{References}
+\begin{cvcolumns}
+  \cvcolumn{name}{
+  \begin{itemize}
+  \item Prof. Alfred Galichon \\ Courant Institute of Mathematical Sciences \& Department of Economics, NYU \\
+  \item Prof. David Cesarini \\ Department of Economics, NYU \\
+  \item Prof. Daniel Benjamin \\ Anderson School of Management, UCLA \\
+  \end{itemize}}
+  
+  \cvcolumn[0.5]{email address}{
+  \begin{itemize}
+  \item ag133@nyu.edu  \\ \\ \\
+  \item dac12@nyu.edu  \\ \\
+  \item daniel.benjamin@anderson.ucla.edu  \\ \\
+  \end{itemize}}
+  
+\end{cvcolumns}
+
+% Publications from a BibTeX file without multibib
+%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+% (biblatex setup moved to preamble)
+
+% Publications from a BibTeX file using the multibib package
+%\section{Publications}
+%\nocitebook{book1,book2}
+%\bibliographystylebook{plain}
+%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
+%\nocitemisc{misc1,misc2,misc3}
+%\bibliographystylemisc{plain}
+%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+
+
+
+
+\end{document}
+
+
+%% end of file `template.tex'.
