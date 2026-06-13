@@ -3,15 +3,14 @@ layout: page
 permalink: /research/
 title: Research
 description: ""
-years: [2040]
 nav: true
 ---
 <!-- _pages/publications.md -->
 <div class="publications">
 
-<!-- {%- for y in page.years %}
-  <h2 class="year">{{y}}</h2>
-  
-{% endfor %} -->
-{% bibliography -f papers -q @* %}
+<h2>Work in Progress</h2>
+{% bibliography -f papers --group_by none -q @*[status=work-in-progress]* %}
+
+<h2>Published and Preprints</h2>
+{% bibliography -f papers -q @*[status!=work-in-progress]* %}
 </div>
