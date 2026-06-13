@@ -53,11 +53,6 @@
 \DeclareFieldFormat{note}{\cvbibSanitizeNote{#1}}
 \DeclareSourcemap{
   \maps[datatype=bibtex]{
-    % Normalize link fields: if `url` is missing but `html` exists, copy `html` -> `url`.
-    \map{
-      \step[fieldsource=html, fieldtarget=url, final]
-      \step[fieldset=html, null]
-    }
     % `abbr` is a nonstandard field; map it into `shortjournal` (a standard biblatex field)
     % so it survives biber and we can reliably print it.
     \map{
