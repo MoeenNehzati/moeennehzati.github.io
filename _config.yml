@@ -223,7 +223,7 @@ kramdown:
       start_line: 1
 
 # Includes & excludes
-include: ["_pages"]
+include: ["_pages", "CV/_build/cv.pdf"]
 exclude:
   - _pages/repositories.md
   - _pages/profiles.md
@@ -356,7 +356,6 @@ filtered_bibtex_keywords:
     bibtex_show,
     blog,
     code,
-    html,
     pdf,
     poster,
     preview,

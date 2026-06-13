@@ -11,4 +11,8 @@ assets/libs/
 node_modules/
 vendor
 .idea
+# Ignore generated build directories, but keep the CV PDF served by the site.
 **/_build/
+!CV/_build/
+CV/_build/*
+!CV/_build/cv.pdf
