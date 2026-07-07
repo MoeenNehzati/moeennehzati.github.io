@@ -69,6 +69,17 @@
       \step[fieldsource=notes, fieldtarget=note, final]
       \step[fieldset=notes, null]
     }
+    % `credit_url`/`credit_text` (optional, on `software` entries: a link to a
+    % paper the software implements) are nonstandard; map them into biblatex's
+    % generic `usera`/`userb` fields so they survive biber.
+    \map{
+      \step[fieldsource=credit_url, fieldtarget=usera, final]
+      \step[fieldset=credit_url, null]
+    }
+    \map{
+      \step[fieldsource=credit_text, fieldtarget=userb, final]
+      \step[fieldset=credit_text, null]
+    }
   }
 }
 \addbibresource{../_bibliography/papers.bib}
@@ -147,7 +158,10 @@
 % keyword checks (they simply have no `status`/`keywords` field), and are
 % rendered separately below in the Software section.
 \newcommand*{\cvbibdriverSoftware}{%
-  \cventry{}{\printfield{title}}{\iffieldundef{url}{}{\href{\strfield{url}}{available here}}}{}{}{\printfield{note}}%
+  \cventry{}{\printfield{title}}{\iffieldundef{url}{}{\href{\strfield{url}}{available here}}}{}{}{%
+    \printfield{note}%
+    \iffieldundef{usera}{}{ \href{\strfield{usera}}{\strfield{userb}}.}%
+  }%
   \finentry
 }
 \DeclareBibliographyDriver{software}{\cvbibdriverSoftware}
