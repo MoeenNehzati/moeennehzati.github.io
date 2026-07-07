@@ -142,6 +142,16 @@
 \DeclareBibliographyDriver{techreport}{\cvbibdriver}
 \DeclareBibliographyDriver{misc}{\cvbibdriver}
 
+% `@software` entries (title/url/note) share papers.bib with the papers above but
+% are excluded from every `check=...` list via the `published/preprint/wip`
+% keyword checks (they simply have no `status`/`keywords` field), and are
+% rendered separately below in the Software section.
+\newcommand*{\cvbibdriverSoftware}{%
+  \cventry{}{\printfield{title}}{\iffieldundef{url}{}{\href{\strfield{url}}{available here}}}{}{}{\printfield{note}}%
+  \finentry
+}
+\DeclareBibliographyDriver{software}{\cvbibdriverSoftware}
+
 % Group marker shown in the year (hint) column once per category.
 \newcommand*{\pubgroup}[1]{%
   % Use theme purple (NYU-ish) and prevent line breaks in the hint column.
@@ -185,11 +195,7 @@
 
 
 \section{Software}
-\cventry{}{gconvex}{\href{https://github.com/MoeenNehzati/gconvex}{available here} }{}{}{Implements Finitely Convex Models developed in Universal Representation of Generalized Convex Functions and their Gradients. The models are used to find optimal selling mechanism with single buyer and multiple goods. The results match the theoretical optimal benchmark and are quick to be found even on personal computers.}
-
-\cventry{}{SNIPar}{\href{https://github.com/AlexTISYoung/SNIPar}{available here} }{}{}{A python library for fast imputation of missing parental genotypes from observed genotypes in a nuclear family, performing family-based genome-wide association and polygenic score analysis}
-
-\cventry{}{poissonreg}{\href{https://github.com/MoeenNehzati/PoissonReg}{available here} }{}{}{A lightweight python package for fast sparse poison regression based on pytorch}
+\printbibliography[type=software,heading=none]
 
 
 
