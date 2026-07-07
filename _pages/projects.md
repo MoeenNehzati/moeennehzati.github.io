@@ -12,6 +12,13 @@ horizontal: false
 <!-- pages/projects.md -->
 <div class="projects">
   <section>
+    <h1><a href="https://github.com/MoeenNehzati/famulus">famulus</a></h1>
+    <p>
+      A personal assistant, research assistant, and automation skill library, cross-platform and compatible with both Claude Code and Codex: daily planning, calendar/email automation, mathematical writing and proof review, LaTeX tooling, and recurring background jobs.
+    </p>
+  </section>
+
+  <section>
     <h1><a href="https://github.com/MoeenNehzati/gconvex">gconvex</a></h1>
     <p>
       Implements Finitely Convex Models developed in <a href="https://arxiv.org/abs/2509.04477">Universal Representation of Generalized Convex Functions and their Gradients</a>. The models are used to find optimal selling mechanism with single buyer and multiple goods. The results match the theoretical optimal benchmark and are quick to be found even on personal computers.
@@ -32,12 +39,5 @@ horizontal: false
     <p>
       A simple library for sparse poisson regression, based on PyTorch.
     </p> 
-  </section>
-
-  <section>
-    <h1><a href="https://github.com/MoeenNehzati/famulus">famulus</a></h1>
-    <p>
-      A research-assistant skill library for Claude Code and Codex: daily planning, calendar/email automation, mathematical writing and proof review, LaTeX tooling, and recurring background jobs, all sharing one cross-platform framework (pure Python, no compiled dependencies) that keeps skills, agents, and hooks consistent across both hosts.
-    </p>
   </section>
 </div>
