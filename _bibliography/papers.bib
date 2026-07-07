@@ -125,3 +125,37 @@
   status = {preprint},
   keywords = {preprint}
 }
+
+% Software/projects shown on the /projects/ page and in the CV's Software section.
+% These use the entry type "software", not "article", so they never get
+% picked up by the paper-only queries above (research page, selected-papers
+% homepage list). `sortkey` fixes display order in the CV (biblatex sorts by
+% year/name/title otherwise, and these entries have none of those); Jekyll
+% already renders these in file order regardless, so `sortkey` is a no-op there.
+@software{famulus,
+  title={famulus},
+  url={https://github.com/MoeenNehzati/famulus},
+  sortkey={4},
+  note={A personal assistant, research assistant, and automation skill library, cross-platform and compatible with both Claude Code and Codex: daily planning, calendar/email automation, mathematical writing and proof review, LaTeX tooling, and recurring background jobs.}
+}
+
+@software{gconvex,
+  title={gconvex},
+  url={https://github.com/MoeenNehzati/gconvex},
+  sortkey={3},
+  note={Implements Finitely Convex Models developed in Universal Representation of Generalized Convex Functions and their Gradients (https://arxiv.org/abs/2509.04477). The models are used to find optimal selling mechanism with single buyer and multiple goods. The results match the theoretical optimal benchmark and are quick to be found even on personal computers.}
+}
+
+@software{snipar,
+  title={snipar},
+  url={https://github.com/AlexTISYoung/snipar},
+  sortkey={2},
+  note={snipar (single nucleotide imputation of parents) is a Python package for inferring identity-by-descent (IBD) segments shared between siblings, imputing missing parental genotypes, and for performing family based genome-wide association and polygenic score analyses using observed and/or imputed parental genotypes. The imputation method and the family-based GWAS and polygenic score models are described in Young et al. 2022 (https://www.nature.com/articles/s41588-022-01085-0).}
+}
+
+@software{poissonreg,
+  title={poissonreg},
+  url={https://github.com/MoeenNehzati/PoissonReg},
+  sortkey={1},
+  note={A simple library for sparse poisson regression, based on PyTorch.}
+}
