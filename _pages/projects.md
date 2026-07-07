@@ -33,4 +33,11 @@ horizontal: false
       A simple library for sparse poisson regression, based on PyTorch.
     </p> 
   </section>
+
+  <section>
+    <h1><a href="https://github.com/MoeenNehzati/famulus">famulus</a></h1>
+    <p>
+      A research-assistant skill library for Claude Code and Codex: daily planning, calendar/email automation, mathematical writing and proof review, LaTeX tooling, and recurring background jobs, all sharing one cross-platform framework (pure Python, no compiled dependencies) that keeps skills, agents, and hooks consistent across both hosts.
+    </p>
+  </section>
 </div>
