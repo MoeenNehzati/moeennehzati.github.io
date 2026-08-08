@@ -11,8 +11,6 @@ assets/libs/
 node_modules/
 vendor
 .idea
-# Ignore generated build directories, but keep the CV PDF served by the site.
+# Ignore generated build directories. The CV PDF served by the site is
+# compiled during deployment, not committed.
 **/_build/
-!CV/_build/
-CV/_build/*
-!CV/_build/cv.pdf
