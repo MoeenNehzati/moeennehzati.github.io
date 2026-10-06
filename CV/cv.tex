@@ -80,6 +80,13 @@
       \step[fieldsource=credit_text, fieldtarget=userb, final]
       \step[fieldset=credit_text, null]
     }
+    % `pdf` (website field: a file in assets/pdf/) is nonstandard; turn a bare
+    % filename into its absolute URL on the site and map it into `userc`.
+    \map{
+      \step[fieldsource=pdf, final]
+      \step[fieldsource=pdf, match=\regexp{\A([^:]+)\Z}, replace=\regexp{https://moeennehzati.github.io/assets/pdf/$1}]
+      \step[fieldsource=pdf, fieldtarget=userc]
+    }
   }
 }
 \addbibresource{../_bibliography/papers.bib}
@@ -113,12 +120,28 @@
   }%
 }
 
+% Fallback for entries with no venue label: link the url (or else the site
+% PDF) as "Preprint".
+\newcommand*{\cvbibfallbacklink}{%
+  \iffieldundef{url}{%
+    \iffieldundef{userc}{}{%
+      \href{\strfield{userc}}{Preprint}%
+      \booltrue{cvbibprinted}%
+    }%
+  }{%
+    \href{\strfield{url}}{Preprint}%
+    \booltrue{cvbibprinted}%
+  }%
+}
+
 \newbool{cvbibprinted}
 \newcommand*{\cvbibdetails}{%
   \boolfalse{cvbibprinted}%
-  % Venue (linked when url exists)
+  % Venue (linked when url exists); otherwise a fallback link
   \iffieldundef{shortjournal}{%
-    \iflistundef{institution}{}{%
+    \iflistundef{institution}{%
+      \cvbibfallbacklink%
+    }{%
       \printlist{institution}%
       \booltrue{cvbibprinted}%
     }%
