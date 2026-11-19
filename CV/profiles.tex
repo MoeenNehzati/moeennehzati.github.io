@@ -1,0 +1,58 @@
+% Profiles change presentation only; all bibliography entries remain included.
+% Unprioritized entries use the existing year/name/title sorting.
+\newbool{cvKnownProfile}
+\ifdefstring{\cvProfile}{general}{\booltrue{cvKnownProfile}}{}
+\ifdefstring{\cvProfile}{ml}{%
+\booltrue{cvKnownProfile}
+\renewcommand{\cvSections}{\cvEducation\cvInterests\cvResearch\cvSoftware\cvExperience\cvSkills\cvLanguages\cvReferences}
+\renewcommand{\cvInterestText}{Optimization \textperiodcentered{} Statistical Learning \textperiodcentered{} Optimal Transport \textperiodcentered{} Economic Theory}
+\DeclareStyleSourcemap{\maps[datatype=bibtex]{%
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2025universal\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026inference\Z}, final]\step[fieldset=presort, fieldvalue={01}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Agconvex\Z}, final]\step[fieldset=presort, fieldvalue={02}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Apoissonreg\Z}, final]\step[fieldset=presort, fieldvalue={03}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Afamulus\Z}, final]\step[fieldset=presort, fieldvalue={04}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Asnipar\Z}, final]\step[fieldset=presort, fieldvalue={05}]}
+}}
+}{}
+\ifdefstring{\cvProfile}{econ-ai}{%
+\booltrue{cvKnownProfile}
+\renewcommand{\cvSections}{\cvEducation\cvInterests\cvResearch\cvExperience\cvSoftware\cvSkills\cvLanguages\cvReferences}
+\renewcommand{\cvInterestText}{Economic Theory \textperiodcentered{} Optimization \textperiodcentered{} Statistical Learning \textperiodcentered{} Optimal Transport}
+\DeclareStyleSourcemap{\maps[datatype=bibtex]{%
+\map{\step[fieldsource=entrykey, match=\regexp{\Acussen2026nash\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026welfare\Z}, final]\step[fieldset=presort, fieldvalue={01}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026inference\Z}, final]\step[fieldset=presort, fieldvalue={02}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Agconvex\Z}, final]\step[fieldset=presort, fieldvalue={03}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Asnipar\Z}, final]\step[fieldset=presort, fieldvalue={04}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Afamulus\Z}, final]\step[fieldset=presort, fieldvalue={05}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Apoissonreg\Z}, final]\step[fieldset=presort, fieldvalue={06}]}
+}}
+}{}
+\ifdefstring{\cvProfile}{genetics}{%
+\booltrue{cvKnownProfile}
+\renewcommand{\cvSections}{\cvEducation\cvResearchExperience\cvResearch\cvSoftware\cvSkills\cvOtherExperience\cvLanguages\cvReferences}
+\DeclareStyleSourcemap{\maps[datatype=bibtex]{%
+\map{\step[fieldsource=entrykey, match=\regexp{\Aguan2025family\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Ayoung2022mendelian\Z}, final]\step[fieldset=presort, fieldvalue={01}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Aokbay2022polygenic\Z}, final]\step[fieldset=presort, fieldvalue={02}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Atan2024family\Z}, final]\step[fieldset=presort, fieldvalue={03}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Asnipar\Z}, final]\step[fieldset=presort, fieldvalue={04}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Agconvex\Z}, final]\step[fieldset=presort, fieldvalue={05}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Apoissonreg\Z}, final]\step[fieldset=presort, fieldvalue={06}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Afamulus\Z}, final]\step[fieldset=presort, fieldvalue={07}]}
+}}
+}{}
+\ifdefstring{\cvProfile}{quant}{%
+\booltrue{cvKnownProfile}
+\renewcommand{\cvSections}{\cvEducation\cvResearch\cvSoftware\cvExperience\cvSkills\cvLanguages\cvReferences}
+\DeclareStyleSourcemap{\maps[datatype=bibtex]{%
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2025universal\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026inference\Z}, final]\step[fieldset=presort, fieldvalue={01}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Agconvex\Z}, final]\step[fieldset=presort, fieldvalue={02}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Asnipar\Z}, final]\step[fieldset=presort, fieldvalue={03}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Apoissonreg\Z}, final]\step[fieldset=presort, fieldvalue={04}]}
+\map{\step[fieldsource=entrykey, match=\regexp{\Afamulus\Z}, final]\step[fieldset=presort, fieldvalue={05}]}
+}}
+}{}
+\ifbool{cvKnownProfile}{}{\PackageError{cv}{Unknown CV profile: \cvProfile}{Use general, ml, econ-ai, genetics, or quant.}}

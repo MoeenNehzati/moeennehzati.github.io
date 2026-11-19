@@ -225,6 +225,13 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "CV/_build/cv.pdf"]
 exclude:
+  # Application CVs and their tooling belong in Git, not the published site.
+  - "CV/cv-*.tex"
+  - "CV/_build/cv-*"
+  - CV/profiles.tex
+  - CV/Makefile
+  - CV/README.md
+  - CV/check_profiles.py
   - _pages/repositories.md
   - _pages/profiles.md
   - _pages/blog.md
