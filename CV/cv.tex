@@ -195,31 +195,30 @@
   \cvitem{\makebox[\hintscolumnwidth][l]{\textcolor{color1}{\textbf{\mbox{#1}}}}}{}%
 }
 
-\begin{document}
-%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
-%-----       resume       ---------------------------------------------------------
-\makecvtitle
+\newcommand{\cvInterestText}{Optimization \textperiodcentered{} Economic Theory \textperiodcentered{} Statistical Learning \textperiodcentered{} Optimal Transport}
+
+\newcommand{\cvEducation}{%
 \section{Education}
 \cventry{2022--2028}{PhD in Economics}{}{}{}{New York University, NY, USA \newline Advisor: Alfred Galichon}
 \cventry{2015--2019}{BS in Computer Engineering}{}{}{}
 {Sharif University of Technology, Tehran, Iran
 }
-%  \\ cumulative GPA: \textbf{19.08/20  }
+}
 
+\newcommand{\cvInterests}{%
 \section{Research Interests}
-\cventry{}{Optimization \textperiodcentered{} Economic Theory \textperiodcentered{} Statistical Learning \textperiodcentered{} Optimal Transport}{}{}{}{}
+\cventry{}{\cvInterestText}{}{}{}{}
+}
 
+\newcommand{\cvExperience}{%
 \section{Work Experience}
-\cventry{2020-2022}{Predoctoral research fellow}{UCLA and USC}{}{}{I worked on disentangling the complex relationship between genetic factors and behavioral traits. I was responsible for solving statistical models and implementing efficient solutions scalable to terabytes of data. This effort led to papers published in Nature and the development of statistical software regularly used by practitioners in the field.}
+\cvFellowship
+\cvAuctions
+}
 
-
-\cventry{ 2019}{Data Scientist}{Cafe bazaar}{}{}{Cafe Bazaar is an Iranian Android marketplace with more than 50 million active users. There, I worked on optimizing the advertising auctions and evaluating them empirically. Due to my technical background, I also participated in the creation, implementation, and deployment of the machine learning models needed for resolving auctions.}
-
-%\clearpage\end{CJK*}                              % if you are typesetting your resume in Chinese using CJK; the \clearpage is required for fancyhdr to work correctly with CJK, though it kills the page numbering by making \lastpage undefined
-% Replace manual publication list with biblatex-driven lists
+\newcommand{\cvResearch}{%
 \section{Research}
-% Include all entries so printbibliography can filter them
-\nocite{*}
+
 \pubgroup{Published}
 \printbibliography[check=published,heading=none]
 
@@ -228,67 +227,25 @@
 
 \pubgroup{Work in progress}
 \printbibliography[check=wip,heading=none]
+}
 
-
-
+\newcommand{\cvSoftware}{%
 \section{Software}
 \printbibliography[type=software,heading=none]
+}
 
-
-
-% \section{Teaching Experience}
-
-% \cventry{2019}{Teaching Assistant: Algorithmic game theory}{Sharif University of Technology}{graduate course}{}{}
-
-% \cventry{2019}{Teaching Assistant: Information theory}{Sharif University of Technology}{graduate course}{}{}
-
-% \cventry{2018}{Teaching Assistant: Numerical methods}{Sharif University of Technology}{}{}{}
-
-% \cventry{2017}{Teaching Assistant: Social and economic networks}{Sharif University of Technology}{graduate course}{}{}
-
-% \cventry{2017}{Teaching Assistant: Probability and Statistics}{Sharif University of Technology}{}{}{}
-
-% \cventry{2016}{Teaching Assistant: Advanced Programming}{Sharif University of Technology}{}{}{}
-
+\newcommand{\cvSkills}{%
 \section{Technical skills}
 \cvdoubleitem{}{\textbf{Python/Java/Cython} Expert}{}{\textbf{Pytorch/Scikit/Spark} Experienced}
 \cvdoubleitem{}{\textbf{Scientific Programming} Expert}{}{\textbf{C/C++/R/SQL/Julia} Experienced}
+}
 
-% \section{Economics-Relevant Coursework}
-% \cventry{}{Economics:}{}{}{}{
-% \begin{itemize}%
-% The graduate first-year sequence in Microeconomics, Macroeconomics, and econometrics/ Algorithmic Game theory (19.9/20)/ Mechanism design[graduate at Stanford] (audited)/ System Dynamics[graduate] (20/20)
-% \end{itemize}}
-
-% \cventry{}{Statistics and machine learning:}{}{}{}{
-% \begin{itemize}%
-%  Causal inference[graduate] (20/20)/ Information theory[graduate] (18.9/20)/ Deep learning[from Google] (audited)/ Machine learning (audited)/ Probability and Statistics (20/20)
-% \end{itemize}}
-
-% \cventry{}{Mathematics:}{}{}{}{
-% \begin{itemize}%
-%  Mathematical Analysis (A)/ Linear algebra (20/20)/ Multivariate-Calculus (18/20)/ Differential equations (19.1/20)/ Numerical methods (19.3/20)
-% \end{itemize}}
-
-% \cventry{}{Theoretical computer science:}{}{}{}{
-% \begin{itemize}%
-%   Design and analysis of algorithms[with a focus on graph algorithms] (18.8/20)/ Discrete mathematics (19.6/20)/ Theory of languages and automata (19.1/20)/ Computability theory (20/20)
-% \end{itemize}}
-
-% \cventry{}{Computer engineering(with a focus on data):}{}{}{}{
-% \begin{itemize}%
-%  Database design (18.7/20)/ Modern information retrieval (18.6/20)/ Advanced programming (19.7/20)/ Fundamentals of programming (20/20)/  Compiler design (20/20)
-% \end{itemize}}
-
-% \section{Awards and Honors}
-% \cventry{}{ranked 7th in Iran's national university entrance exam's related subdivision}{}{}{}{}
-% \cventry{}{Among top 0.05\% in Iran's national university entrance exam}{}{}{}{}
-% \cventry{}{Member of Iran's National Elites Foundation}{}{}{}{}
-% INEF regards its young members as those who will lead Iran's future in science, culture and art
-
+\newcommand{\cvLanguages}{%
 \section{Languages}
 \cvitemwithcomment{}{Persian(native)/ English(Fluent)/ Arabic(basic)}{}
+}
 
+\newcommand{\cvReferences}{%
 \section{References}
 \begin{cvcolumns}
   \cvcolumn{name}{
@@ -306,25 +263,32 @@
   \end{itemize}}
   
 \end{cvcolumns}
+}
 
-% Publications from a BibTeX file without multibib
-%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
-%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
-% (biblatex setup moved to preamble)
+\newcommand{\cvFellowship}{%
+\cventry{2020-2022}{Predoctoral research fellow}{UCLA and USC}{}{}{I worked on disentangling the complex relationship between genetic factors and behavioral traits. I was responsible for solving statistical models and implementing efficient solutions scalable to terabytes of data. This effort led to papers published in Nature and the development of statistical software regularly used by practitioners in the field.}
+}
 
-% Publications from a BibTeX file using the multibib package
-%\section{Publications}
-%\nocitebook{book1,book2}
-%\bibliographystylebook{plain}
-%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
-%\nocitemisc{misc1,misc2,misc3}
-%\bibliographystylemisc{plain}
-%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+\newcommand{\cvAuctions}{%
+\cventry{ 2019}{Data Scientist}{Cafe bazaar}{}{}{Cafe Bazaar is an Iranian Android marketplace with more than 50 million active users. There, I worked on optimizing the advertising auctions and evaluating them empirically. Due to my technical background, I also participated in the creation, implementation, and deployment of the machine learning models needed for resolving auctions.}
+}
 
+\newcommand{\cvResearchExperience}{%
+\section{Research Experience}
+\cvFellowship
+}
 
+\newcommand{\cvOtherExperience}{%
+\section{Other Experience}
+\cvAuctions
+}
 
+\newcommand{\cvSections}{\cvEducation\cvInterests\cvExperience\cvResearch\cvSoftware\cvSkills\cvLanguages\cvReferences}
+\providecommand{\cvProfile}{general}
+\input{profiles.tex}
 
+\begin{document}
+\makecvtitle
+\nocite{*}
+\cvSections
 \end{document}
-
-
-%% end of file `template.tex'.
