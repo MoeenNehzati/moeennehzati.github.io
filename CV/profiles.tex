@@ -1,5 +1,9 @@
 % Profiles change presentation only; all bibliography entries remain included.
 % Unprioritized entries use the existing year/name/title sorting.
+% Prioritize LLM evaluation within work in progress for every profile.
+\DeclareStyleSourcemap{\maps[datatype=bibtex]{%
+\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026llmsolution\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
+}}
 \newbool{cvKnownProfile}
 \ifdefstring{\cvProfile}{general}{\booltrue{cvKnownProfile}}{}
 \ifdefstring{\cvProfile}{ml}{%
@@ -20,7 +24,6 @@
 \renewcommand{\cvSections}{\cvEducation\cvInterests\cvResearch\cvExperience\cvSoftware\cvSkills\cvLanguages\cvReferences}
 \renewcommand{\cvInterestText}{Economic Theory \textperiodcentered{} Optimization \textperiodcentered{} Statistical Learning \textperiodcentered{} Optimal Transport}
 \DeclareStyleSourcemap{\maps[datatype=bibtex]{%
-\map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026llmsolution\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
 \map{\step[fieldsource=entrykey, match=\regexp{\Acussen2026nash\Z}, final]\step[fieldset=presort, fieldvalue={00}]}
 \map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026welfare\Z}, final]\step[fieldset=presort, fieldvalue={01}]}
 \map{\step[fieldsource=entrykey, match=\regexp{\Anehzati2026inference\Z}, final]\step[fieldset=presort, fieldvalue={02}]}
